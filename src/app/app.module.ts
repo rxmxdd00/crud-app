@@ -1,5 +1,6 @@
 import { CourseComponent, CourseDialogComponent } from './pages/course/course.component';
 import { DepartmentComponent, DepartmentDialogComponent } from './pages/department/department.component';
+import { EnrollmentComponent, EnrollmentDialogComponent } from './pages/enrollment/enrollment.component';
 import { StudentComponent, StudentDialogComponent } from './pages/student/student.component';
 
 import { AccordionComponent } from './components/accordion/accordion.component';
@@ -8,7 +9,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import {CdkAccordionModule} from '@angular/cdk/accordion';
-import { EnrollmentComponent } from './pages/enrollment/enrollment.component';
 import {FormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -17,6 +17,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -34,7 +35,8 @@ import { TeacherComponent } from './pages/teacher/teacher.component';
     NavbarComponent,
     DepartmentDialogComponent,
     StudentDialogComponent,
-    CourseDialogComponent
+    CourseDialogComponent,
+    EnrollmentDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,8 @@ import { TeacherComponent } from './pages/teacher/teacher.component';
     MatDialogModule,
     ReactiveFormsModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

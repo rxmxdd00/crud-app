@@ -1,1 +1,68 @@
-<p>student works!</p>
+<div class="w-full p-10">
+    <div class="flex justify-center">
+        <mat-form-field class="w-full">
+            <mat-label>Filter Students</mat-label>
+            <mat-select [(ngModel)]="selectStudent" (ngModelChange)="sort($event)">
+                <mat-option *ngFor="let dep of students" [value]="dep.value">{{dep.viewValue}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <section>
+        <div class="w-full bg-[#2C3138] h-[60px] rounded-lg" (click)="openAddDialog()">
+            <div class="flex items-center justify-center h-full">
+                <span class="text-white text-2xl ">
+                    ADD
+                </span>
+            </div>
+        </div>
+    </section>
+
+
+    <section>
+        <div class="w-full md:hidden">
+            <cdk-accordion class="accordion w-full">
+                <cdk-accordion-item
+                  *ngFor="let item of items; let index = index"
+                  #accordionItem="cdkAccordionItem"
+                  class="accordion-item"
+                  role="button"
+                  tabindex="0"
+                  [attr.id]="'accordion-header-' + index"
+                  [attr.aria-expanded]="accordionItem.expanded"
+                  [attr.aria-controls]="'accordion-body-' + index"
+                >
+                  <div class="accordion-item-header" (click)="accordionItem.toggle()">
+                    {{ item.firstName +' '+ item.lastName }}
+                  </div>
+                  <div
+                    class="accordion-item-body"
+                    role="region"
+                    [style.display]="accordionItem.expanded ? '' : 'none'"
+                    [attr.id]="'accordion-body-' + index"
+                    [attr.aria-labelledby]="'accordion-header-' + index"
+                  >
+                    <div>
+                        <div>
+                            <span>ID: {{item.id}}</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div>
+                            <span>Created At: {{item.created_at | date:'yyyy-dd-MM'}}</span>
+                        </div>
+                    </div>
+            
+                    <div class="space-x-2 pt-4">
+                        <button class="w-[100px] h-[40px] bg-[#2C3138] rounded-lg text-white" (click)="openEditDialog(item)">Edit</button>
+                        <button class="w-[100px] h-[40px] bg-[#850101] rounded-lg text-white" (click)="openDeleteDialog(item)">Delete</button>
+                    </div>
+                   
+                  </div>
+                </cdk-accordion-item>
+              </cdk-accordion>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+            
+        </div>
+    </section>
+</div>

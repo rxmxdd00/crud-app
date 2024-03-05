@@ -6,6 +6,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DepartmentService } from 'src/app/services/department.service';
 import { Department } from 'src/app/interface/department';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-course',
@@ -116,6 +117,7 @@ export class CourseDialogComponent implements OnInit{
   constructor(public dialogRef: MatDialogRef<CourseDialogComponent>,
     private courseServices : CourseService,
     private departmentServices : DepartmentService,
+    private snackBar : MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       console.log('datum', data);
       
@@ -166,6 +168,12 @@ export class CourseDialogComponent implements OnInit{
     addCourse () {
       console.log(this.courseForm.value);
       if(this.courseForm.invalid) {
+        this.snackBar.open('Fill-up all the required fields', 'Close', {
+          duration: 3000, 
+          verticalPosition: 'bottom', 
+          horizontalPosition: 'center',
+          panelClass: ['error-snackbar'], 
+        });
         return;
       }
      
@@ -183,6 +191,12 @@ export class CourseDialogComponent implements OnInit{
     updateCourse () {
     
       if(this.courseForm.invalid) {
+        this.snackBar.open('Fill-up all the required fields', 'Close', {
+          duration: 3000, 
+          verticalPosition: 'bottom', 
+          horizontalPosition: 'center',
+          panelClass: ['error-snackbar'], 
+        });
         return;
       }
   

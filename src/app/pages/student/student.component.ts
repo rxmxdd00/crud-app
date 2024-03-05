@@ -6,6 +6,7 @@ import { Student } from 'src/app/interface/student';
 import { StudentService } from 'src/app/services/student.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-student',
   templateUrl: './student.component.html',
@@ -106,6 +107,7 @@ export class StudentDialogComponent implements OnInit{
   constructor(
     public dialogRef: MatDialogRef<DepartmentDialogComponent>,
     private studentServices : StudentService,
+    private snackBar : MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       console.log('datum', data);
       
@@ -153,6 +155,12 @@ export class StudentDialogComponent implements OnInit{
   addStudent () {
 
     if(this.studentForm.invalid) {
+      this.snackBar.open('Fill-up all the required fields', 'Close', {
+        duration: 3000, 
+        verticalPosition: 'bottom', 
+        horizontalPosition: 'center',
+        panelClass: ['error-snackbar'], 
+      });
       return;
     }
 
@@ -175,6 +183,12 @@ export class StudentDialogComponent implements OnInit{
   updateStudent () {
     
     if(this.studentForm.invalid) {
+      this.snackBar.open('Fill-up all the required fields', 'Close', {
+        duration: 3000, 
+        verticalPosition: 'bottom', 
+        horizontalPosition: 'center',
+        panelClass: ['error-snackbar'], 
+      });
       return;
     }
 

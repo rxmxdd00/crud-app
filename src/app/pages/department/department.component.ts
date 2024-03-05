@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Department } from 'src/app/interface/department';
 import { DepartmentService } from 'src/app/services/department.service';
@@ -114,6 +115,7 @@ export class DepartmentDialogComponent implements OnInit{
   constructor(
     public dialogRef: MatDialogRef<DepartmentDialogComponent>,
     private departmentServices : DepartmentService,
+    private snackBar : MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       console.log('datum', data);
       
@@ -154,6 +156,12 @@ export class DepartmentDialogComponent implements OnInit{
 
   addDepartment (){
     if(this.departmentForm.invalid) {
+      this.snackBar.open('Fill-up all the required fields', 'Close', {
+        duration: 3000, 
+        verticalPosition: 'bottom', 
+        horizontalPosition: 'center',
+        panelClass: ['error-snackbar'], 
+      });
       return;
     }
     const data ={

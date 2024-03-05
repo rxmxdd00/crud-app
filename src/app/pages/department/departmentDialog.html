@@ -1,0 +1,50 @@
+<div>
+    <div *ngIf="data.dialog_type=='ADD' || data.dialog_type =='EDIT'">
+       <section>
+            <div class="w-[300px] h-[400px]">
+                <div class="p-4">
+                    <form [formGroup]="departmentForm">
+                        <mat-form-field class="w-full border-1 border-black rounded-lg">
+                          <mat-label>Department</mat-label>
+                          <input matInput placeholder="Enter department" formControlName="departmentName">
+                        </mat-form-field>
+                    </form>
+
+                    <div class="flex justify-center space-x-2">
+                        <div>
+                            <button class="w-[120px] rounded-lg h-[40px] bg-[#2C3138] text-white" (click)="result(true)">
+                                {{data.dialog_type =="ADD" ? 'ADD' : 'EDIT'}}
+                            </button>
+                        </div>
+                        <div>
+                            <button class="w-[120px] rounded-lg h-[40px] bg-[#850101] text-white" (click)="result(false)">
+                                CANCEL
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       </section>
+    </div>
+
+    <div *ngIf="data.dialog_type=='DELETE'">
+        <div class="p-4 space-y-4">
+            <div class="text-center">
+                <span>Are you sure you want to delete this data?</span>
+            </div>
+
+            <div class="flex justify-center space-x-2">
+                <div>
+                    <button class="w-[120px] rounded-lg h-[40px] bg-[#2C3138] text-white" (click)="result(true)">
+                       DELETE
+                    </button>
+                </div>
+                <div>
+                    <button class="w-[120px] rounded-lg h-[40px] bg-[#850101] text-white" (click)="result(false)">
+                        CANCEL
+                    </button>
+                </div>
+            </div>
+        </div>  
+    </div>
+</div>

@@ -117,11 +117,10 @@ export class DepartmentDialogComponent implements OnInit{
     private departmentServices : DepartmentService,
     private snackBar : MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-      console.log('datum', data);
+      // console.log('datum', data);
       
       if(data.dialog_type=="EDIT") {
         this.selectedId = data.data.id;
-        console.log('called')
         this.departmentForm = new FormGroup({
           departmentName: new FormControl(data.data.departmentName, Validators.required)
         });

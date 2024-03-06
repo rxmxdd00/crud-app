@@ -1,22 +1,31 @@
 <div class="w-full p-10">
+    
     <div class="flex justify-center">
-        <mat-form-field class="w-full">
-            <mat-label>Filter Departments</mat-label>
-            <mat-select [(ngModel)]="selectedDepartment" (ngModelChange)="sort($event)">
-                <mat-option *ngFor="let dep of departments" [value]="dep.value">{{dep.viewValue}}</mat-option>
-            </mat-select>
-        </mat-form-field>
+        <span class="text-3xl font-bold">
+            Departments Record
+        </span>
     </div>
 
-    <section>
-        <div class="w-full bg-[#2C3138] h-[60px] rounded-lg" (click)="openAddDialog()">
-            <div class="flex items-center justify-center h-full">
-                <span class="text-white text-2xl ">
-                    ADD
-                </span>
-            </div>
+    <div class="pt-6">
+        <div class="flex justify-center">
+            <mat-form-field class="w-full">
+                <mat-label>Filter Departments</mat-label>
+                <mat-select [(ngModel)]="selectedDepartment" (ngModelChange)="sort($event)">
+                    <mat-option *ngFor="let dep of departments" [value]="dep.value">{{dep.viewValue}}</mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
-    </section>
+    
+        <section>
+            <div class="w-full bg-[#2C3138] h-[60px] rounded-lg" (click)="openAddDialog()">
+                <div class="flex items-center justify-center h-full">
+                    <span class="text-white text-2xl ">
+                        ADD
+                    </span>
+                </div>
+            </div>
+        </section>
+    </div>
 
 
     <section>

@@ -22,6 +22,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 } 
 
 
+#mobile-menu {
+  z-index: 1000; /* Adjust the z-index value as needed to ensure it's above other elements */
+}
 
 .accordion {
     display: block;

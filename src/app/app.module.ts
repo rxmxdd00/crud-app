@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import {CdkAccordionModule} from '@angular/cdk/accordion';
 import {FormsModule} from '@angular/forms';
+import { HeaderComponent } from './components/header/header.component';
 import { HttpClientModule } from '@angular/common/http';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -20,6 +21,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NgModule } from '@angular/core';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TeacherComponent } from './pages/teacher/teacher.component';
 
@@ -36,7 +38,8 @@ import { TeacherComponent } from './pages/teacher/teacher.component';
     DepartmentDialogComponent,
     StudentDialogComponent,
     CourseDialogComponent,
-    EnrollmentDialogComponent
+    EnrollmentDialogComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +55,8 @@ import { TeacherComponent } from './pages/teacher/teacher.component';
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    NgSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

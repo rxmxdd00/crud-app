@@ -1,15 +1,11 @@
-<div class="w-full h-[80px] bg-[#4F7942] rounded-b-[35px]">
+<div class="w-full h-[80px] bg-black ">
    <div class="flex justify-between pt-[10px] md:hidden ">
         
-        <div class="pt-[5px] pl-[100px]">
-            <span class="text-white text-3xl">Department</span>
+        <div class="pt-[5px] pl-[60px]">
+            <span class="text-white text-3xl text-center">Enrollment System</span>
         </div>
-        <!-- <div class="cursor-pointer">
-            <img src="../../../assets/icons/ic_right_menu.png" alt="" class="w-[50px]">
-        </div> -->
         <div class="p-2">
             <button id="hamburger-button" class="text-3xl text-white curser-pointer md:hidden relative w-8 h-8">
-                <!-- &#9776; -->
                 <div
                     class="bg-white w-8 h-1 rounded absolute top-4 -mt-0.5 transition-all duration-500 before:content-[''] before:bg-white before:w-8 before:h-1 before:rounded before:absolute  before:-translate-x-4 before:-translate-y-3 before:transition-all before:duration-500 after:content-[''] after:bg-white after:w-8 after:h-1 after:rounded after:absolute  after:-translate-x-4 after:translate-y-3 after:transition-all after:duration-500">
                 
@@ -23,19 +19,63 @@
             &times;
         </button> -->
         <nav class="flex flex-col min-h-screen items-center py-8" aria-label="mobile">
-            <a href="#" class="w-full text-center py-6 hover:opacity-90 text-3xl">
+            <a [routerLink]="['/enrollment']" routerLinkActive="router-link-active"  class="w-full text-center py-6 hover:opacity-90 text-3xl">
                 Enrollment
             </a>
-            <a href="#" class="w-full text-center py-6 hover:opacity-90 text-3xl">
+            <a [routerLink]="['/student']" routerLinkActive="router-link-active"  class="w-full text-center py-6 hover:opacity-90 text-3xl">
                 Student
             </a>
-            <a href="#" class="w-full text-center py-6 hover:opacity-90 text-3xl">
+            <a [routerLink]="['/course']" routerLinkActive="router-link-active"  class="w-full text-center py-6 hover:opacity-90 text-3xl">
                 Course
             </a>
-            <a href="#" class="w-full text-center py-6 hover:opacity-90 text-3xl">
+            <a [routerLink]="['/department']" routerLinkActive="router-link-active"  class="w-full text-center py-6 hover:opacity-90 text-3xl">
                 Department
             </a>
             
         </nav>
+   </section>
+
+   <section class="hidden md:flex w-full h-full justify-between">
+        <div class="flex flex-col items-end justify-center pr-4">
+            <span class="text-white font-bold text-3xl md:pl-2">
+                Enrollment System
+            </span>
+        </div>
+
+        <div class="flex flex-col items-end justify-center md:pr-4">
+            <nav class="flex justify-end md:space-x-2 lg:space-x-6">
+                <a [routerLink]="['/enrollment']">
+                    <div class="flex flex-col justify-center">
+                        <span class="text-white text-2xl">
+                            Enrollment
+                        </span>
+                    </div>
+                </a>
+    
+                <a [routerLink]="['/student']">
+                    <div class="flex flex-col justify-center">
+                        <span class="text-white text-2xl">
+                            Student
+                        </span>
+                    </div>
+                </a>
+    
+                <a [routerLink]="['/course']">
+                    <div class="flex flex-col justify-center">
+                        <span class="text-white text-2xl">
+                            Course
+                        </span>
+                    </div>
+                </a>
+    
+                <a [routerLink]="['/department']">
+                    <div class="flex flex-col justify-center">
+                        <span class="text-white text-2xl">
+                            Department
+                        </span>
+                    </div>
+                </a>
+            </nav>
+        </div>
    </section>
 </div>

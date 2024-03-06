@@ -26,7 +26,7 @@ export class CourseComponent implements OnInit{
     , private departmentServices: DepartmentService){}
   ngOnInit(): void {
     this.getCourseData();
-    this.getDepartment();
+    // this.getDepartment();
   }
   sort(query:string) {
     if(query == 'courseName') {
@@ -47,15 +47,15 @@ export class CourseComponent implements OnInit{
     });
   }
 
-  getDepartment() {
-    this.departmentServices.getDepartmentData().subscribe( (res: Department[]) => {
-      this.departments=res;
-    });
-  }
+  // getDepartment() {
+  //   this.departmentServices.getDepartmentData().subscribe( (res: Department[]) => {
+  //     this.departments=res;
+  //   });
+  // }
 
-  findDepartmentById (id:any) {
-    return this.departments.find(dep => dep.id == id);
-  }
+  // findDepartmentById (id:any) {
+  //   return this.departments.find(dep => dep.id == id);
+  // }
 
 
   openAddDialog(): void {
@@ -119,7 +119,7 @@ export class CourseDialogComponent implements OnInit{
     private departmentServices : DepartmentService,
     private snackBar : MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-      console.log('datum', data);
+      // console.log('datum', data);
       
       if(data.dialog_type=="EDIT") {
         this.selectedId = data.data.id;
@@ -166,7 +166,6 @@ export class CourseDialogComponent implements OnInit{
       });
     }
     addCourse () {
-      console.log(this.courseForm.value);
       if(this.courseForm.invalid) {
         this.snackBar.open('Fill-up all the required fields', 'Close', {
           duration: 3000, 

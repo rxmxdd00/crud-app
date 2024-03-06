@@ -1,22 +1,31 @@
 <div class="w-full p-10">
+
     <div class="flex justify-center">
-        <mat-form-field class="w-full">
-            <mat-label>Filter Enrollments</mat-label>
-            <mat-select [(ngModel)]="selectEnrollment" (ngModelChange)="sort($event)">
-                <mat-option *ngFor="let en of enrollments" [value]="en.value">{{en.viewValue}}</mat-option>
-            </mat-select>
-        </mat-form-field>
+        <span class="text-3xl font-bold">
+            Enrollments Record
+        </span>
     </div>
 
-    <section>
-        <div class="w-full bg-[#2C3138] h-[60px] rounded-lg" (click)="openAddDialog()">
-            <div class="flex items-center justify-center h-full">
-                <span class="text-white text-2xl ">
-                    ADD
-                </span>
-            </div>
+    <div class="pt-6">
+        <div class="flex justify-center">
+            <mat-form-field class="w-full">
+                <mat-label>Filter Enrollments</mat-label>
+                <mat-select [(ngModel)]="selectEnrollment" (ngModelChange)="sort($event)">
+                    <mat-option *ngFor="let en of enrollments" [value]="en.value">{{en.viewValue}}</mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
-    </section>
+    
+        <section>
+            <div class="w-full bg-[#2C3138] h-[60px] rounded-lg" (click)="openAddDialog()">
+                <div class="flex items-center justify-center h-full">
+                    <span class="text-white text-2xl ">
+                        ADD
+                    </span>
+                </div>
+            </div>
+        </section>
+    </div>
 
 
     <section>
@@ -32,8 +41,12 @@
                   [attr.aria-expanded]="accordionItem.expanded"
                   [attr.aria-controls]="'accordion-body-' + index"
                 >
-                  <div class="accordion-item-header" (click)="accordionItem.toggle()">
+                  <!-- <div class="accordion-item-header" (click)="accordionItem.toggle()">
                     {{ item.studentId }}
+                  </div> -->
+
+                  <div class="accordion-item-header" (click)="accordionItem.toggle()">
+                    <span class="text-[18px] font-bold">{{ item.firstName +' '+ item.lastName }}</span>
                   </div>
                   <div
                     class="accordion-item-body"
@@ -43,15 +56,39 @@
                     [attr.aria-labelledby]="'accordion-header-' + index"
                   >
                     <div>
-                        <div>
-                            <span>ID: {{item.id}}</span>
-                        </div>
+                        <span class="text-[18px] font-bold">Enrollment ID: </span> 
+                        <span class="font-sans text-[20px]">{{item.id}}</span>
+                    </div>
+
+                    <div>
+                        <span class="text-[18px] font-bold">Enrolled: </span> 
+                        <span class="font-sans text-[20px]">{{item.enrollment_date}}</span>
+                    </div>
+
+                    <div>
+                        <span class="text-[18px] font-bold">Course: </span> 
+                        <span class="font-sans text-[20px]">{{item.courseName}}</span>
+                    </div>
+
+                    <div>
+                        <span class="text-[18px] font-bold">Department: </span> 
+                        <span class="font-sans text-[20px]">{{ findDepartmentById(item.departmentId)?.departmentName}}</span>
+                    </div>
+
+                    <div>
+                        <span class="text-[18px] font-bold">Address: </span> 
+                        <span class="font-sans text-[20px]">{{item.address}}</span>
                     </div>
 
                     <div>
                         <div>
                             <span>Created At: {{item.created_at | date:'yyyy-dd-MM'}}</span>
                         </div>
+                    </div>
+
+                    <div>
+                        <span class="text-[18px] font-bold">Birthdate : </span> 
+                        <span class="font-sans text-[20px]">{{item.DOB}}</span>
                     </div>
             
                     <div class="space-x-2 pt-4">

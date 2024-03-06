@@ -16,8 +16,8 @@ export class EnrollmentService {
   }
 
   addEnrollment (data:any): Observable<any[]> {
-
-    return this.http.post<any[]>(`${this.API_URL}/enrollment`, data);
+    console.log(data);
+    return this.http.post<any[]>(`http://localhost:8000/api/enrollment`, data);
   }
 
   updateEnrollment (data:any, id:any) {

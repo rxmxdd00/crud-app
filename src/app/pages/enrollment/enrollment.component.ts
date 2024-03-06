@@ -11,6 +11,8 @@ import { StudentService } from 'src/app/services/student.service';
 import * as moment from 'moment';
 import { EnrollmentService } from 'src/app/services/enrollment.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Department } from 'src/app/interface/department';
+import { DepartmentService } from 'src/app/services/department.service';
 @Component({
   selector: 'app-enrollment',
   templateUrl: './enrollment.component.html',
@@ -19,6 +21,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class EnrollmentComponent implements OnInit {
 
   items:Enrollment[] = [];
+  departments : Department[] = [];
   filteredItems:any;
   selectEnrollment: string | undefined;
 
@@ -29,18 +32,30 @@ export class EnrollmentComponent implements OnInit {
   ];
 
 
-  constructor(private enrollmentService : EnrollmentService, private dialog: MatDialog) {
+  constructor(private enrollmentService : EnrollmentService, private dialog: MatDialog,
+   private departmentService : DepartmentService) {
 
   }
 
   ngOnInit(): void {
       this. getEnrollmentData () ;
+      this.getDepartment() ;
   }
 
   getEnrollmentData () {
     this.enrollmentService.getEnrollmentData().subscribe( (res: Enrollment[]) => {
       this.items=res;
     });
+  }
+
+  getDepartment() {
+    this.departmentService.getDepartmentData().subscribe( (res: Department[]) => {
+      this.departments=res;
+    });
+  }
+
+  findDepartmentById (id:any) {
+    return this.departments.find(dep => dep.id == id);
   }
 
   sort(query:string) {
@@ -68,6 +83,7 @@ export class EnrollmentComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
         this. getEnrollmentData () ;
+        this.getDepartment() ;
       }
     });
   }
@@ -81,6 +97,7 @@ export class EnrollmentComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
         this. getEnrollmentData () ;
+        this.getDepartment() ;
       }
     });
   }
@@ -95,6 +112,7 @@ export class EnrollmentComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
         this. getEnrollmentData () ;
+        this.getDepartment() ;
       }
     });
   }
@@ -121,7 +139,7 @@ export class EnrollmentDialogComponent implements OnInit{
     private snackBar : MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any){
 
-      console.log('datum', data);
+      // console.log('datum', data);
       
       if(data.dialog_type=="EDIT") {
         this.selectedId = data.data.id;
@@ -165,7 +183,11 @@ export class EnrollmentDialogComponent implements OnInit{
       this.enrollments=res;
     });
   }
-  trackByDepartment(index: number, item: any): number {
+  trackByStudent(index: number, item: any): number {
+    return item.id;
+  }
+
+  trackByCourse(index: number, item: any): number {
     return item.id;
   }
 
@@ -205,7 +227,6 @@ export class EnrollmentDialogComponent implements OnInit{
       return;
     }
 
-    console.log(this.enrollmentForm.value);
     let formattedDate = moment(this.enrollmentForm.value.enrollment_date).format('YYYY/MM/DD');
     const data = {
       studentId : this.enrollmentForm.value.student,
@@ -241,7 +262,6 @@ export class EnrollmentDialogComponent implements OnInit{
       return;
     }
 
-    console.log(this.enrollmentForm.value);
     let formattedDate = moment(this.enrollmentForm.value.enrollment_date).format('YYYY/MM/DD');
     const data = {
       studentId : this.enrollmentForm.value.student,

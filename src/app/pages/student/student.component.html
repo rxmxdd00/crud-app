@@ -1,22 +1,33 @@
 <div class="w-full p-10">
+
+
     <div class="flex justify-center">
-        <mat-form-field class="w-full">
-            <mat-label>Filter Students</mat-label>
-            <mat-select [(ngModel)]="selectStudent" (ngModelChange)="sort($event)">
-                <mat-option *ngFor="let dep of students" [value]="dep.value">{{dep.viewValue}}</mat-option>
-            </mat-select>
-        </mat-form-field>
+        <span class="text-3xl font-bold">
+            Students Record
+        </span>
     </div>
 
-    <section>
-        <div class="w-full bg-[#2C3138] h-[60px] rounded-lg" (click)="openAddDialog()">
-            <div class="flex items-center justify-center h-full">
-                <span class="text-white text-2xl ">
-                    ADD
-                </span>
-            </div>
+
+    <div class="pt-6">
+        <div class="flex justify-center">
+            <mat-form-field class="w-full">
+                <mat-label>Filter Students</mat-label>
+                <mat-select [(ngModel)]="selectStudent" (ngModelChange)="sort($event)">
+                    <mat-option *ngFor="let dep of students" [value]="dep.value">{{dep.viewValue}}</mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
-    </section>
+    
+        <section>
+            <div class="w-full bg-[#2C3138] h-[60px] rounded-lg" (click)="openAddDialog()">
+                <div class="flex items-center justify-center h-full">
+                    <span class="text-white text-2xl ">
+                        ADD
+                    </span>
+                </div>
+            </div>
+        </section>
+    </div>
 
 
     <section>
@@ -43,15 +54,23 @@
                     [attr.aria-labelledby]="'accordion-header-' + index"
                   >
                     <div>
-                        <div>
-                            <span>ID: {{item.id}}</span>
-                        </div>
+                        <span class="text-[18px] font-bold">Student ID: </span> 
+                        <span class="font-sans text-[20px]">{{item.id}}</span>
                     </div>
 
                     <div>
-                        <div>
-                            <span>Created At: {{item.created_at | date:'yyyy-dd-MM'}}</span>
-                        </div>
+                        <span class="text-[18px] font-bold">Address: </span> 
+                        <span class="font-sans text-[20px]">{{item.address}}</span>
+                    </div>
+
+                    <div>
+                        <span class="text-[18px] font-bold">Birthdate: </span> 
+                        <span class="font-sans text-[20px]">{{item.DOB}}</span>
+                    </div>
+
+                    <div>
+                        <span class="text-[18px] font-bold">Created At: </span> 
+                        <span class="font-sans text-[20px]">{{item.created_at | date:'yyyy-dd-MM'}}</span>
                     </div>
             
                     <div class="space-x-2 pt-4">

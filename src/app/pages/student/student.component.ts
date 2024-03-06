@@ -109,7 +109,7 @@ export class StudentDialogComponent implements OnInit{
     private studentServices : StudentService,
     private snackBar : MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-      console.log('datum', data);
+      // console.log('datum', data);
       
       if(data.dialog_type=="EDIT") {
         this.selectedId = data.data.id;

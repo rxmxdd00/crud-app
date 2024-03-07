@@ -8,18 +8,22 @@
 
     <div class="w-full pt-6 lg:pt-10 md:flex justify-between md:space-x-4">
         <div class="flex flex-col md:flex-row justify-center md:space-x-2">
-            <mat-form-field class="w-full">
+            <mat-form-field class="w-full md:w-[250px] lg:w-full">
                 <mat-label>Search</mat-label>
                 <input type="text" matInput [(ngModel)]="searchTerm" (input)="search()">
             </mat-form-field>
-            <mat-form-field class="w-full">
-                <mat-label>Filter Departments</mat-label>
-                <mat-select [(ngModel)]="selectedDepartment" (ngModelChange)="sort($event)">
-                    <mat-option *ngFor="let dep of departments" [value]="dep.value">{{dep.viewValue}}</mat-option>
-                </mat-select>
-            </mat-form-field>
-            <div class="lg:pt-[5px] hidden md:block" (click)=" refresh()">
-              <img src="../../../assets/decorations/dec_refresh_svg.svg" alt="" class="w-[100px]">
+            <div class="w-full flex space-x-4 lg:space-x-2">
+              <div>
+                <mat-form-field class="w-full">
+                    <mat-label>Filter Departments</mat-label>
+                    <mat-select [(ngModel)]="selectedDepartment" (ngModelChange)="sort($event)">
+                        <mat-option *ngFor="let dep of departments" [value]="dep.value">{{dep.viewValue}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="lg:pt-[5px] " (click)="refresh()">
+                <img src="../../../assets/decorations/dec_refresh_svg.svg" alt="" class="w-[50px] lg:w-[100px]">
+              </div>
             </div>
         </div>
     

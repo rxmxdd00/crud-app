@@ -16,7 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class CourseComponent implements OnInit{
   items:Course[] = [];
   departments:Department[] = [];
-  selectStudent: string | undefined;
+  selectCourses: string | undefined;
   courses: any[] = [
     {value: 'courseName', viewValue: 'Course'},
     {value: 'departmentName', viewValue: 'Department'},
@@ -57,7 +57,7 @@ export class CourseComponent implements OnInit{
 
   refresh () {
     this.searchTerm = "";
-    this.selectStudent = undefined;
+    this.selectCourses = undefined;
     this.filteredItems = null;
     this.getCourseData();
   }

@@ -17,11 +17,15 @@ export class CourseComponent implements OnInit{
   items:Course[] = [];
   departments:Department[] = [];
   selectStudent: string | undefined;
-  students: any[] = [
-    {value: 'lastName', viewValue: 'Last Name'},
-    {value: 'firstName', viewValue: 'Firste Name'},
+  courses: any[] = [
+    {value: 'courseName', viewValue: 'Course'},
+    {value: 'departmentName', viewValue: 'Department'},
     {value: 'created_at', viewValue: 'Created At'},
   ];
+
+  searchTerm: string = '';
+  filteredItems:any;
+
   constructor( private dialog: MatDialog, private courseService : CourseService
     , private departmentServices: DepartmentService){}
   ngOnInit(): void {
@@ -32,6 +36,10 @@ export class CourseComponent implements OnInit{
     if(query == 'courseName') {
       this.items.sort((a, b) =>
       a.courseName.localeCompare(b.courseName)
+      );
+    } else if(query == 'departmentName') {
+      this.items.sort((a, b) =>
+      a.departmentName.localeCompare(b.departmentName)
       );
     } else  if (query == 'created_at'){
       this.items.sort((a, b) =>
@@ -47,6 +55,24 @@ export class CourseComponent implements OnInit{
     });
   }
 
+  refresh () {
+    this.searchTerm = "";
+    this.selectStudent = undefined;
+    this.filteredItems = null;
+    this.getCourseData();
+  }
+
+  search() {
+    if(this.searchTerm == "" || !this.searchTerm) {
+      this.filteredItems = null;
+      return;
+    }
+
+    this.filteredItems = this.items.filter((item) =>
+      item.courseName.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+  }
+
   // getDepartment() {
   //   this.departmentServices.getDepartmentData().subscribe( (res: Department[]) => {
   //     this.departments=res;
@@ -60,7 +86,8 @@ export class CourseComponent implements OnInit{
 
   openAddDialog(): void {
     const dialogRef = this.dialog.open(CourseDialogComponent, {
-      width: '100vh',
+      maxHeight: '55vh',
+      width: '55vh',
       data: { dialog_type : 'ADD'}
     });
 
@@ -74,7 +101,8 @@ export class CourseComponent implements OnInit{
 
   openEditDialog(selectedData:any): void {
     const dialogRef = this.dialog.open(CourseDialogComponent, {
-      width: '80vh',
+      maxHeight: '55vh',
+      width: '55vh',
       data: { dialog_type : 'EDIT', data : selectedData}
     });
 
@@ -86,10 +114,23 @@ export class CourseComponent implements OnInit{
     });
   }
 
+  openViewDialog(selectedData:any): void {
+    const dialogRef = this.dialog.open(CourseDialogComponent, {
+      maxHeight : '85vh',
+      width: '55vh',
+      data: { dialog_type : 'VIEW', data : selectedData}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this. getCourseData () ;
+      }
+    });
+  }
 
   openDeleteDialog(selectedData:any): void {
     const dialogRef = this.dialog.open(CourseDialogComponent, {
-      width: '80vh',
+      width: '55vh',
       data: { dialog_type : 'DELETE', data : selectedData}
     });
 

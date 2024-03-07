@@ -1,19 +1,19 @@
 <div class="rounded-lg">
-    <div class="w-full h-[50px] bg-[#4F7942] p-2 flex justify-center">
+    <div class="w-full h-[50px] bg-[#008000] p-2 flex justify-center">
         <span class="text-white text-xl">
-            {{data.dialog_type=='ADD' ? 'ADD' : data.dialog_type =='EDIT' ? 'EDIT' : 'DELETE'}} ENROLLMENT DATA
+            {{data.dialog_type=='ADD' ? 'ADD' : data.dialog_type =='EDIT' ? 'EDIT' : data.dialog_type =='VIEW'? 'VIEW' : 'DELETE'}} ENROLLMENT DATA
         </span>
     </div>
     <div *ngIf="data.dialog_type=='ADD' || data.dialog_type =='EDIT'" class="space-y-6">
        <section>
-            <div class="w-[300px] h-[400px]">
+            <div class="w-auto h-[400px]">
                 <div class="p-6">
                     <form [formGroup]="enrollmentForm">
 
-                        <mat-form-field class="w-full">
+                        <mat-form-field class="w-full" >
                             <mat-label>Student</mat-label>
-                            <mat-select formControlName="student">
-                              <mat-option *ngFor="let stud of students; trackBy: trackByStudent" [value]="stud.id">{{stud.firstName +' ' + stud.lastName}}</mat-option>
+                            <mat-select formControlName="student" [disabled]="true">
+                              <mat-option *ngFor="let stud of students; trackBy: trackByStudent" [value]="stud.id" >{{stud.firstName + ' ' + stud.lastName}}</mat-option>
                             </mat-select>
                         </mat-form-field>
 
@@ -24,7 +24,7 @@
                             </mat-select>
                         </mat-form-field>
 
-                          <mat-form-field>
+                          <mat-form-field class="w-full">
                             <mat-label>Enrollment date</mat-label>
                             <input matInput [matDatepicker]="picker" formControlName="enrollment_date">
                             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
@@ -34,12 +34,12 @@
 
                     <div class="flex justify-center space-x-2 pt-10">
                         <div>
-                            <button class="w-[120px] rounded-lg h-[40px] bg-[#2C3138] text-white" (click)="result(true)">
+                            <button class="w-[120px] rounded-lg h-[40px] bg-[#008000] ease-in-out duration-300 border-2 hover:border-[#008000] hover:bg-white hover:text-[#008000] text-white" (click)="result(true)">
                                 {{data.dialog_type =="ADD" ? 'ADD' : 'EDIT'}}
                             </button>
                         </div>
                         <div>
-                            <button class="w-[120px] rounded-lg h-[40px] bg-[#850101] text-white" (click)="result(false)">
+                            <button class="w-[120px] rounded-lg h-[40px] bg-[#850101] ease-in-out duration-300 border-2 hover:border-[#850101] hover:bg-white hover:text-[#850101] text-white" (click)="result(false)">
                                 CANCEL
                             </button>
                         </div>
@@ -47,6 +47,79 @@
                 </div>
             </div>
        </section>
+    </div>
+
+    <div *ngIf="data.dialog_type=='VIEW'" class="p-8 space-y-2">
+
+
+        <div class=" text-center">
+            <span class="font-bold text-xl font-sans text-zinc-600">
+                STUDENT ENROLLMENT 
+            </span>
+            <span class="font-bold text-lg font-sans text-zinc-600">
+                FORM
+            </span>
+        </div>
+        <div class="flex flex-col">
+            <span class="text-zinc-600">
+                Enrolled Date: 
+            </span>
+            <span class="text-zinc-600 font-bold">
+                {{data.data.enrollment_date}}
+            </span>
+        </div>
+
+        <div class="flex flex-col">
+            <span class="text-zinc-600">
+                Course: 
+            </span>
+            <span class="text-zinc-600 font-bold">
+                {{data.data.courseName}} 
+            </span>
+        </div>
+
+        <div class="flex flex-col">
+            <span class="text-zinc-600">
+                Department: 
+            </span>
+            <span class="text-zinc-600 font-bold">
+                {{findDepartmentById(data.data.departmentId)?.departmentName}} 
+            </span>
+        </div>
+
+        <div class="flex flex-col">
+            <span class="text-zinc-600">
+                Student Name: 
+            </span>
+            <span class="text-zinc-600 font-bold">
+                {{data.data.firstName +' '+ data.data.lastName}} 
+            </span>
+        </div>
+
+        <div class="flex flex-col">
+            <span class="text-zinc-600">
+                Address: 
+            </span>
+            <span class="text-zinc-600 font-bold">
+                {{data.data.address}} 
+            </span>
+        </div>
+
+        <div class="flex flex-col">
+            <span class="text-zinc-600">
+                Birthdate: 
+            </span>
+            <span class="text-zinc-600 font-bold">
+                {{data.data.DOB}}
+            </span>
+        </div>
+
+        <div class="flex justify-center">
+            <button class="w-[120px] rounded-lg h-[40px] bg-[#2C3138] ease-in-out duration-300 border-2 hover:border-[#2C3138] hover:bg-white hover:text-[#2C3138] text-white" (click)="result(false)">
+                Close
+            </button>
+        </div>
+
     </div>
 
     <div *ngIf="data.dialog_type=='DELETE'">
@@ -57,7 +130,7 @@
 
             <div class="flex justify-center space-x-2">
                 <div>
-                    <button class="w-[120px] rounded-lg h-[40px] bg-[#2C3138] text-white" (click)="result(true)">
+                    <button class="w-[120px] rounded-lg h-[40px] bg-[#2C3138] ease-in-out duration-300 border-2 hover:border-[#2C3138] hover:bg-white hover:text-[#2C3138] text-white" (click)="result(true)">
                        DELETE
                     </button>
                 </div>

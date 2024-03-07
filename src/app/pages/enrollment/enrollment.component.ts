@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 
 import { DepartmentDialogComponent } from '../department/department.component';
 import { Enrollment } from 'src/app/interface/enrollment';
@@ -13,6 +13,8 @@ import { EnrollmentService } from 'src/app/services/enrollment.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Department } from 'src/app/interface/department';
 import { DepartmentService } from 'src/app/services/department.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 @Component({
   selector: 'app-enrollment',
   templateUrl: './enrollment.component.html',
@@ -24,13 +26,16 @@ export class EnrollmentComponent implements OnInit {
   departments : Department[] = [];
   filteredItems:any;
   selectEnrollment: string | undefined;
-
+  searchTerm: string = '';
   enrollments: any[] = [
-    {value: 'studentId', viewValue: 'Student'},
-    {value: 'courseId', viewValue: 'Course'},
+    {value: 'lastName', viewValue: 'Student'},
+    {value: 'courseName', viewValue: 'Course'},
     {value: 'created_at', viewValue: 'Created At'},
   ];
 
+  // dataSource = new MatTableDataSource<Enrollment>;
+
+  //   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private enrollmentService : EnrollmentService, private dialog: MatDialog,
    private departmentService : DepartmentService) {
@@ -45,7 +50,17 @@ export class EnrollmentComponent implements OnInit {
   getEnrollmentData () {
     this.enrollmentService.getEnrollmentData().subscribe( (res: Enrollment[]) => {
       this.items=res;
+      // this.dataSource.data = this.items;
+      // const paginator = this.dataSource.paginator;
+      
+      // if (paginator) {
+      //   paginator.pageSize = 10;
+      //   paginator.pageIndex = 0;
+      //   paginator.length = this.items.length;
+      //   paginator.firstPage();
+      // }
     });
+    // console.log(this.dataSource);
   }
 
   getDepartment() {
@@ -59,13 +74,13 @@ export class EnrollmentComponent implements OnInit {
   }
 
   sort(query:string) {
-    if(query == 'studentId') {
+    if(query == 'lastName') {
       this.items.sort((a, b) =>
-      a.studentId.localeCompare(b.studentId)
+      a.lastName.localeCompare(b.lastName)
       );
-    }else if (query == 'courseId'){
+    }else if (query == 'courseName'){
       this.items.sort((a, b) =>
-      a.courseId.localeCompare(b.courseId)
+      a.courseName.localeCompare(b.courseName)
       );
     } else if (query == 'created_at'){
       this.items.sort((a, b) =>
@@ -74,9 +89,29 @@ export class EnrollmentComponent implements OnInit {
     }
   }
 
+  search() {
+    if(this.searchTerm == "" || !this.searchTerm) {
+      this.filteredItems = null;
+      return;
+    }
+
+    this.filteredItems = this.items.filter((item) =>
+      item.lastName.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+    // this.dataSource.data = this.filteredItems;
+    // this.dataSource.paginator?.firstPage(); 
+  }
+
+  refresh() {
+    this.searchTerm = "";
+    this.selectEnrollment = undefined;
+    this.filteredItems = null;
+    this.getEnrollmentData();
+  }
   openAddDialog(): void {
     const dialogRef = this.dialog.open(EnrollmentDialogComponent, {
       maxHeight: '80vh',
+      width: '55vh',
       data: { dialog_type : 'ADD'}
     });
 
@@ -90,8 +125,24 @@ export class EnrollmentComponent implements OnInit {
 
   openEditDialog(selectedData:any): void {
     const dialogRef = this.dialog.open(EnrollmentDialogComponent, {
-      width: '80vh',
+      maxHeight : '80vh',
+      width: '55vh',
       data: { dialog_type : 'EDIT', data : selectedData}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this. getEnrollmentData () ;
+        this.getDepartment() ;
+      }
+    });
+  }
+
+  openViewDialog(selectedData:any): void {
+    const dialogRef = this.dialog.open(EnrollmentDialogComponent, {
+      maxHeight : '85vh',
+      width: '55vh',
+      data: { dialog_type : 'VIEW', data : selectedData}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -105,7 +156,7 @@ export class EnrollmentComponent implements OnInit {
 
   openDeleteDialog(selectedData:any): void {
     const dialogRef = this.dialog.open(EnrollmentDialogComponent, {
-      width: '80vh',
+      width: '55vh',
       data: { dialog_type : 'DELETE', data : selectedData}
     });
 
@@ -132,10 +183,13 @@ export class EnrollmentDialogComponent implements OnInit{
   students:Student[] = [];
   courses:Course[] = [];
   enrollments:Enrollment[] = [];
+  departments : Department[] = [];
+  disableSelect = new FormControl(false);
   constructor( public dialogRef: MatDialogRef<EnrollmentDialogComponent>,
     private courseService : CourseService,
     private studentService : StudentService,
     private enrollmentService : EnrollmentService,
+    private departmentService : DepartmentService,
     private snackBar : MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any){
 
@@ -145,7 +199,7 @@ export class EnrollmentDialogComponent implements OnInit{
         this.selectedId = data.data.id;
         let formattedDOB = new Date(data.data.enrollment_date);
         this.enrollmentForm = new FormGroup({
-          student: new FormControl(data.data.studentId, Validators.required),
+          student: new FormControl({value: data.data.studentId, disabled: true}, Validators.required),
           course: new FormControl(data.data.courseId, Validators.required),
           enrollment_date: new FormControl(formattedDOB, Validators.required),
         });
@@ -164,6 +218,7 @@ export class EnrollmentDialogComponent implements OnInit{
    this.getCourseData();
    this.getStudentData();
    this.getEnrollment();
+   this.getDepartment();
   }
 
   getCourseData () {
@@ -178,11 +233,22 @@ export class EnrollmentDialogComponent implements OnInit{
     });
   }
 
+  getDepartment() {
+    this.departmentService.getDepartmentData().subscribe( (res: Department[]) => {
+      this.departments=res;
+    });
+  }
+
   getEnrollment () {
     this.enrollmentService.getEnrollmentData().subscribe( (res: Enrollment[]) => {
       this.enrollments=res;
     });
   }
+
+  findDepartmentById (id:any) {
+    return this.departments.find(dep => dep.id == id);
+  }
+
   trackByStudent(index: number, item: any): number {
     return item.id;
   }
@@ -251,20 +317,20 @@ export class EnrollmentDialogComponent implements OnInit{
       return;
     }
 
-    const checkStudent = this.enrollments.find(en => en.studentId == this.enrollmentForm.value.student);
-    if (checkStudent) {
-      this.snackBar.open('There is a record already for this student', 'Close', {
-        duration: 3000, 
-        verticalPosition: 'bottom', 
-        horizontalPosition: 'center',
-        panelClass: ['error-snackbar'],
-      });
-      return;
-    }
+    // const checkStudent = this.enrollments.find(en => en.studentId == this.enrollmentForm.value.student);
+    // if (checkStudent) {
+    //   this.snackBar.open('There is a record already for this student', 'Close', {
+    //     duration: 3000, 
+    //     verticalPosition: 'bottom', 
+    //     horizontalPosition: 'center',
+    //     panelClass: ['error-snackbar'],
+    //   });
+    //   return;
+    // }
 
     let formattedDate = moment(this.enrollmentForm.value.enrollment_date).format('YYYY/MM/DD');
     const data = {
-      studentId : this.enrollmentForm.value.student,
+      studentId : this.data.data.studentId,
       courseId: this.enrollmentForm.value.course,
       enrollment_date: formattedDate
     }

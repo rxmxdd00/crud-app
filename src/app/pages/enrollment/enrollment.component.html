@@ -1,38 +1,49 @@
-<div class="w-full p-10">
+<div class="w-full h-full p-10 bg-white rounded-md">
 
     <div class="flex justify-center">
-        <span class="text-3xl font-bold">
+        <span class="text-3xl font-bold text-[#008000]">
             Enrollments Record
         </span>
     </div>
 
-    <div class="pt-6">
-        <div class="flex justify-center">
-            <mat-form-field class="w-full">
-                <mat-label>Filter Enrollments</mat-label>
-                <mat-select [(ngModel)]="selectEnrollment" (ngModelChange)="sort($event)">
-                    <mat-option *ngFor="let en of enrollments" [value]="en.value">{{en.viewValue}}</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
+    <div class="pt-6 lg:pt-10 md:flex justify-between md:space-x-4">
+        <div class="flex flex-col md:flex-row justify-center md:space-x-2">
+          <mat-form-field class="w-full md:w-[250px] lg:w-full">
+              <mat-label>Search</mat-label>
+              <input type="text" matInput [(ngModel)]="searchTerm" (input)="search()">
+          </mat-form-field>
+          <div class="w-full md:flex space-x-4 lg:space-x-2">
+            <div>
+              <mat-form-field class="w-full">
+                  <mat-label>Filter Enrollments</mat-label>
+                  <mat-select [(ngModel)]="selectEnrollment" (ngModelChange)="sort($event)">
+                      <mat-option *ngFor="let en of enrollments" [value]="en.value">{{en.viewValue}}</mat-option>
+                  </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="lg:pt-[5px] " (click)="refresh()">
+              <img src="../../../assets/decorations/dec_refresh_svg.svg" alt="" class="w-[50px] lg:w-[100px]">
+            </div>
+          </div>
+      </div>
     
-        <section>
-            <div class="w-full bg-[#2C3138] h-[60px] rounded-lg" (click)="openAddDialog()">
+        <div class="">
+            <div class="group w-full md:w-[100px] md:h-[55px] bg-[#008000] h-[60px] ease-in-out duration-300 rounded-lg border-2 hover:border-[#008000] hover:bg-white" (click)="openAddDialog()">
                 <div class="flex items-center justify-center h-full">
-                    <span class="text-white text-2xl ">
-                        ADD
+                    <span class="text-white group-hover:text-[#008000]">
+                        Add
                     </span>
                 </div>
             </div>
-        </section>
+        </div>
     </div>
 
 
     <section>
         <div class="w-full md:hidden">
-            <cdk-accordion class="accordion w-full">
+            <cdk-accordion class="accordion w-full pt-4">
                 <cdk-accordion-item
-                  *ngFor="let item of items; let index = index"
+                  *ngFor="let item of filteredItems ? filteredItems : items; let index = index"
                   #accordionItem="cdkAccordionItem"
                   class="accordion-item"
                   role="button"
@@ -91,15 +102,82 @@
                         <span class="font-sans text-[20px]">{{item.DOB}}</span>
                     </div>
             
-                    <div class="space-x-2 pt-4">
-                        <button class="w-[100px] h-[40px] bg-[#2C3138] rounded-lg text-white" (click)="openEditDialog(item)">Edit</button>
-                        <button class="w-[100px] h-[40px] bg-[#850101] rounded-lg text-white" (click)="openDeleteDialog(item)">Delete</button>
+                    <div class="w-full grid grid-cols-2 gap-4 items-center justify-center pt-4 ">
+                      <div class="w-auto">
+                        <button class="w-full h-[40px] bg-[#008000] rounded-lg text-white" (click)="openViewDialog(item)">View</button>
+                      </div>
+                      <div class="w-auto">
+                        <button class="w-full h-[40px] bg-[#2C3138] rounded-lg text-white" (click)="openEditDialog(item)">Edit</button>
+                      </div>
+                      <div class="col-span-2">
+                        <button class="w-full h-[40px] bg-[#850101] rounded-lg text-white" (click)="openDeleteDialog(item)">Delete</button>
+                      </div>
                     </div>
                    
                   </div>
                 </cdk-accordion-item>
               </cdk-accordion>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
             
+        </div>
+
+        <div class="w-full hidden md:block">
+            <div class="flex justify-center">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-transparent">
+                      <tr>
+                        <th scope="col" class="lg:px-4 md:px-2 py-3 text-left text-xs font-medium text-[#008000] uppercase tracking-wider">ID</th>
+                        <th scope="col" class="lg:px-4 md:px-2 py-3 text-left text-xs font-medium text-[#008000] uppercase tracking-wider">Name</th>
+                        <th scope="col" class="lg:px-4 md:px-2 py-3 text-left text-xs font-medium text-[#008000] uppercase tracking-wider">Enrolled</th>
+                        <th scope="col" class="lg:px-4 md:px-2 py-3 text-left text-xs font-medium text-[#008000] uppercase tracking-wider">Course</th>
+                        <th scope="col" class="lg:px-4 md:px-2 py-3 text-left text-xs font-medium text-[#008000] uppercase tracking-wider md:hidden lg:block">Department</th>
+                        <th scope="col" class="lg:px-4 md:px-2 py-3 text-left text-xs font-medium text-[#008000] uppercase tracking-wider">Address</th>
+                        <th scope="col" class="lg:px-4 md:px-2 py-3 text-left text-xs font-medium text-[#008000] uppercase tracking-wider">Created At</th>
+                        <th scope="col" class="lg:px-4 md:px-2 py-3 text-left text-xs font-medium text-[#008000] uppercase tracking-wider md:hidden lg:block">Birthdate</th>
+                        <th scope="col" class="lg:px-4 md:px-2 py-3 text-left text-xs font-medium text-[#008000] uppercase tracking-wider">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of filteredItems ? filteredItems : items">
+                         <td class="lg:px-4 md:px-2 py-4 whitespace-nowrap">
+                          <span class="font-sans text-sm text-[#008000]">{{ item.id }}</span>
+                        </td>
+                        <td class="px-2 py-4 whitespace-nowrap">
+                          <div class="text-sm text-[#008000] font-sans">{{ item.firstName + ' ' + item.lastName }}</div>
+                        </td>
+                        
+                        <td class="lg:px-4 md:px-2 py-4 whitespace-nowrap">
+                          <span class="font-sans text-sm text-[#008000]">{{ item.enrollment_date }}</span>
+                        </td>
+                        <td class="lg:px-4 md:px-2 py-4 whitespace-nowrap">
+                          <span class="font-sans text-sm text-[#008000]">{{ item.courseName }}</span>
+                        </td>
+                        <td class="lg:px-4 md:px-2 py-4 whitespace-nowrap md:hidden lg:block">
+                          <span class="font-sans text-sm text-[#008000]">{{ findDepartmentById(item.departmentId)?.departmentName }}</span>
+                        </td>
+                        <td class="lg:px-4 md:px-2 py-4 whitespace-nowrap">
+                          <span class="font-sans text-sm text-[#008000]">{{ item.address }}</span>
+                        </td>
+                        <td class="lg:px-4 md:px-2 py-4 whitespace-nowrap ">
+                          <div class="text-[#008000]">{{ item.created_at | date:'yyyy-dd-MM' }}</div>
+                        </td>
+                        <td class="lg:px-4 md:px-2 py-4 whitespace-nowrap md:hidden lg:block">
+                          <span class="font-sans text-sm text-[#008000]">{{ item.DOB }}</span>
+                        </td>
+                        <td class="lg:px-4 md:px-2 py-4 whitespace-nowrap space-x-2">
+                          <button (click)="openViewDialog(item)">
+                            <img src="../../../assets/decorations/dec_view_svg.svg" alt="" class="w-[30px]">
+                          </button>
+                          <button (click)="openEditDialog(item)">
+                            <img src="../../../assets/decorations/dec_edit_svg.svg" alt="" class="w-[30px]">
+                          </button>
+                          <button (click)="openDeleteDialog(item)">
+                            <img src="../../../assets/decorations/dec_delete-1-svg.svg" alt="" class="w-[30px]">
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
         </div>
     </section>
 </div>

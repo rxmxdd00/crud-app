@@ -1,12 +1,12 @@
 <div>
-    <div class="w-full h-[50px] bg-[#4F7942] p-2 flex justify-center">
+    <div class="w-full h-[50px] bg-[#008000] p-2 flex justify-center">
         <span class="text-white text-2xl">
-            {{data.dialog_type=='ADD' ? 'ADD' : data.dialog_type =='EDIT' ? 'EDIT' : 'DELETE'}} STUDENT DATA
+            {{data.dialog_type=='ADD' ? 'ADD' : data.dialog_type =='EDIT' ? 'EDIT' : data.dialog_type =='VIEW' ? 'VIEW' :'DELETE'}} STUDENT DATA
         </span>
     </div>
     <div *ngIf="data.dialog_type=='ADD' || data.dialog_type =='EDIT'">
        <section>
-            <div class="w-[300px] h-[500px]">
+            <div class="w-auto h-auto p-4">
                 <div class="p-4">
                     <form [formGroup]="studentForm">
                         <mat-form-field class="w-full border-1 border-black rounded-lg">
@@ -19,7 +19,7 @@
                             <input matInput placeholder="Enter Last Name" formControlName="lastName">
                           </mat-form-field>
 
-                          <mat-form-field>
+                          <mat-form-field class="w-full">
                             <mat-label>Choose a date</mat-label>
                             <input matInput [matDatepicker]="picker" formControlName="DOB">
                             <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
@@ -35,12 +35,12 @@
 
                     <div class="flex justify-center space-x-2">
                         <div>
-                            <button class="w-[120px] rounded-lg h-[40px] bg-[#2C3138] text-white" (click)="result(true)">
+                            <button class="w-[120px] rounded-lg h-[40px] bg-[#008000] ease-in-out duration-300 border-2 hover:border-[#008000] hover:bg-white hover:text-[#008000] text-white" (click)="result(true)">
                                 {{data.dialog_type =="ADD" ? 'ADD' : 'EDIT'}}
                             </button>
                         </div>
                         <div>
-                            <button class="w-[120px] rounded-lg h-[40px] bg-[#850101] text-white" (click)="result(false)">
+                            <button class="w-[120px] rounded-lg h-[40px] bg-[#850101] ease-in-out duration-300 border-2 hover:border-[#850101] hover:bg-white hover:text-[#850101] text-white" (click)="result(false)">
                                 CANCEL
                             </button>
                         </div>
@@ -48,6 +48,50 @@
                 </div>
             </div>
        </section>
+    </div>
+
+    <div *ngIf="data.dialog_type=='VIEW'" class="p-8 space-y-2">
+
+
+        <div class=" text-center">
+            <span class="font-bold text-xl font-sans text-zinc-600">
+                STUDENT DATA 
+            </span>
+        </div>
+
+        <div class="flex flex-col">
+            <span class="text-zinc-600">
+                Student Name: 
+            </span>
+            <span class="text-zinc-600 font-bold">
+                {{data.data.firstName+ ' '+data.data.lastName}} 
+            </span>
+        </div>
+
+        <div class="flex flex-col">
+            <span class="text-zinc-600">
+                Birthdate: 
+            </span>
+            <span class="text-zinc-600 font-bold">
+                {{data.data.DOB}} 
+            </span>
+        </div>
+
+        <div class="flex flex-col">
+            <span class="text-zinc-600">
+                Address: 
+            </span>
+            <span class="text-zinc-600 font-bold">
+                {{data.data.address}} 
+            </span>
+        </div>
+
+        <div class="flex justify-center">
+            <button class="w-[120px] rounded-lg h-[40px] bg-[#2C3138] ease-in-out duration-300 border-2 hover:border-[#2C3138] hover:bg-white hover:text-[#2C3138] text-white" (click)="result(false)">
+                Close
+            </button>
+        </div>
+
     </div>
 
     <div *ngIf="data.dialog_type=='DELETE'">
@@ -58,12 +102,12 @@
 
             <div class="flex justify-center space-x-2">
                 <div>
-                    <button class="w-[120px] rounded-lg h-[40px] bg-[#2C3138] text-white" (click)="result(true)">
+                    <button class="w-[120px] rounded-lg h-[40px] bg-[#2C3138] ease-in-out duration-300 border-2 hover:border-[#2C3138] hover:bg-white hover:text-[#2C3138] text-white" (click)="result(true)">
                        DELETE
                     </button>
                 </div>
                 <div>
-                    <button class="w-[120px] rounded-lg h-[40px] bg-[#850101] text-white" (click)="result(false)">
+                    <button class="w-[120px] rounded-lg h-[40px] bg-[#850101] ease-in-out duration-300 border-2 hover:border-[#850101] hover:bg-white hover:text-[#850101] text-white" (click)="result(false)">
                         CANCEL
                     </button>
                 </div>

@@ -20,7 +20,12 @@ export class StudentComponent implements OnInit {
     {value: 'firstName', viewValue: 'Firste Name'},
     {value: 'created_at', viewValue: 'Created At'},
   ];
+  searchTerm: string = '';
+  filteredItems:any;
+  
   constructor( private dialog: MatDialog, private studentService : StudentService){}
+
+
   ngOnInit(): void {
       this.getStudentData ();
   }
@@ -47,9 +52,36 @@ export class StudentComponent implements OnInit {
       this.items=res;
     });
   }
+
+  search() {
+    if(this.searchTerm == "" || !this.searchTerm) {
+      this.filteredItems = null;
+      return;
+    }
+
+    this.filteredItems = this.items.filter((item) =>
+      item.lastName.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+  }
+
+  refresh() {
+    this.searchTerm = "";
+    this.selectStudent = undefined;
+    this.filteredItems = null;
+    this.getStudentData();
+  }
+   // filtered(query:string) {
+  //   if(!query) {
+  //     return;
+  //   }
+  //   console.log(this.items);
+  //   this.items = this.items.filter(item => item.departmentName.toLowerCase().includes(query.toLowerCase()));
+  //   console.log(this.items);
+  // }
   openAddDialog(): void {
     const dialogRef = this.dialog.open(StudentDialogComponent, {
-      width: '100vh',
+      maxHeight: '80vh',
+      width: '55vh',
       data: { dialog_type : 'ADD'}
     });
 
@@ -57,13 +89,13 @@ export class StudentComponent implements OnInit {
       if(result) {
         this.getStudentData();
       }
-      // this.animal = result;
     });
   }
 
   openEditDialog(selectedData:any): void {
     const dialogRef = this.dialog.open(StudentDialogComponent, {
-      width: '80vh',
+      maxHeight: '80vh',
+      width: '55vh',
       data: { dialog_type : 'EDIT', data : selectedData}
     });
 
@@ -71,10 +103,22 @@ export class StudentComponent implements OnInit {
       if(result) {
         this.getStudentData();
       }
-      // this.animal = result;
     });
   }
 
+  openViewDialog(selectedData:any): void {
+    const dialogRef = this.dialog.open(StudentDialogComponent, {
+      maxHeight : '85vh',
+      width: '55vh',
+      data: { dialog_type : 'VIEW', data : selectedData}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this. getStudentData () ;
+      }
+    });
+  }
 
   openDeleteDialog(selectedData:any): void {
     const dialogRef = this.dialog.open(StudentDialogComponent, {
@@ -86,7 +130,6 @@ export class StudentComponent implements OnInit {
       if(result) {
         this.getStudentData();
       }
-      // this.animal = result;
     });
   }
 }

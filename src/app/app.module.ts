@@ -17,8 +17,10 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatNativeDateModule} from '@angular/material/core';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatSelectModule} from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NgModule } from '@angular/core';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -56,7 +58,10 @@ import { TeacherComponent } from './pages/teacher/teacher.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSnackBarModule,
-    NgSelectModule
+    NgSelectModule,
+    MatPaginatorModule,
+    MatTableModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

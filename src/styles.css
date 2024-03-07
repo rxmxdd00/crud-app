@@ -34,12 +34,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   
   .accordion-item {
     display: block;
-    border: solid 1px #ccc;
-    margin: 20px;
+    border: solid 1px #008000;
+    border-radius: 13px;
+    margin-top: 20px;
   }
   
   .accordion-item + .accordion-item {
-    border-top: none;
+    /* border-top: none; */
   }
   
   .accordion-item-header {
@@ -60,15 +61,21 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   
   .accordion-item-header:hover {
     cursor: pointer;
-    background-color: #eee;
+    background-color: #C1E1C1;
+    border-radius: 13px;
   }
   
   .accordion-item:first-child {
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
+    /* border-top-left-radius: 13px;
+    border-top-right-radius: 13px; */
   }
   
   .accordion-item:last-child {
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
+    /* border-bottom-left-radius: 13px;
+    border-bottom-right-radius: 13px; */
+  }
+
+  .loading-cursor {
+    cursor: wait; 
+    pointer-events: none;
   }

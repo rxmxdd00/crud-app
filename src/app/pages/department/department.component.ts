@@ -16,7 +16,7 @@ export class DepartmentComponent implements OnInit{
   items:Department[] = [];
   filteredItems:any;
   selectedDepartment: string | undefined;
-
+  searchTerm: string = '';
   departments: any[] = [
     {value: 'departmentName', viewValue: 'Department'},
     {value: 'created_at', viewValue: 'Created At'},
@@ -36,10 +36,27 @@ export class DepartmentComponent implements OnInit{
     });
   }
 
+  refresh(){
+    this.searchTerm = "";
+    this.selectedDepartment = undefined;
+    this.filteredItems = null;
+    this.getDepartmentData();
+  }
+
+  search() {
+    if(this.searchTerm == "" || !this.searchTerm) {
+      this.filteredItems = null;
+      return;
+    }
+
+    this.filteredItems = this.items.filter((item) =>
+      item.departmentName.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+  }
 
   openAddDialog(): void {
     const dialogRef = this.dialog.open(DepartmentDialogComponent, {
-      width: '80vh',
+      width: '50vh',
       data: { dialog_type : 'ADD'}
     });
 
@@ -47,13 +64,12 @@ export class DepartmentComponent implements OnInit{
       if(result) {
         this.getDepartmentData();
       }
-      // this.animal = result;
     });
   }
 
   openEditDialog(selectedData:any): void {
     const dialogRef = this.dialog.open(DepartmentDialogComponent, {
-      width: '80vh',
+      width: '50vh',
       data: { dialog_type : 'EDIT', data : selectedData}
     });
 
@@ -61,14 +77,26 @@ export class DepartmentComponent implements OnInit{
       if(result) {
         this.getDepartmentData();
       }
-      // this.animal = result;
     });
   }
 
+  openViewDialog(selectedData:any): void {
+    const dialogRef = this.dialog.open(DepartmentDialogComponent, {
+      maxHeight : '85vh',
+      width: '55vh',
+      data: { dialog_type : 'VIEW', data : selectedData}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this. getDepartmentData () ;
+      }
+    });
+  }
 
   openDeleteDialog(selectedData:any): void {
     const dialogRef = this.dialog.open(DepartmentDialogComponent, {
-      width: '80vh',
+      width: '55vh',
       data: { dialog_type : 'DELETE', data : selectedData}
     });
 
@@ -76,7 +104,6 @@ export class DepartmentComponent implements OnInit{
       if(result) {
         this.getDepartmentData();
       }
-      // this.animal = result;
     });
   }
 

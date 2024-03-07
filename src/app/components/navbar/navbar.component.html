@@ -1,8 +1,8 @@
-<div class="w-full h-[80px] bg-black ">
+<div class="min-w-full h-[80px] bg-[#008000] shadow-lg shadow-[#009E60] rounded-b-lg">
    <div class="flex justify-between pt-[10px] md:hidden ">
         
         <div class="pt-[5px] pl-[60px]">
-            <span class="text-white text-3xl text-center">Enrollment System</span>
+            <span class="text-white text-3xl text-center ">Enrollment System</span>
         </div>
         <div class="p-2">
             <button id="hamburger-button" class="text-3xl text-white curser-pointer md:hidden relative w-8 h-8">
@@ -45,7 +45,7 @@
         <div class="flex flex-col items-end justify-center md:pr-4">
             <nav class="flex justify-end md:space-x-2 lg:space-x-6">
                 <a [routerLink]="['/enrollment']">
-                    <div class="flex flex-col justify-center">
+                    <div class="flex flex-col justify-center h-full border-b-2 border-[#008000] hover:border-white ease-in-out duration-300">
                         <span class="text-white text-2xl">
                             Enrollment
                         </span>
@@ -53,7 +53,7 @@
                 </a>
     
                 <a [routerLink]="['/student']">
-                    <div class="flex flex-col justify-center">
+                    <div class="flex flex-col justify-center border-b-2 border-[#008000] hover:border-white">
                         <span class="text-white text-2xl">
                             Student
                         </span>
@@ -61,7 +61,7 @@
                 </a>
     
                 <a [routerLink]="['/course']">
-                    <div class="flex flex-col justify-center">
+                    <div class="flex flex-col justify-center border-b-2 border-[#008000] hover:border-white">
                         <span class="text-white text-2xl">
                             Course
                         </span>
@@ -69,7 +69,7 @@
                 </a>
     
                 <a [routerLink]="['/department']">
-                    <div class="flex flex-col justify-center">
+                    <div class="flex flex-col justify-center border-b-2 border-[#008000] hover:border-white">
                         <span class="text-white text-2xl">
                             Department
                         </span>

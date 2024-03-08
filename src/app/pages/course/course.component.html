@@ -54,7 +54,7 @@
                   [attr.aria-controls]="'accordion-body-' + index"
                 >
                   <div class="accordion-item-header" (click)="accordionItem.toggle()">
-                    <span class="text-[18px] font-bold"> {{ item.courseName }} </span>
+                    <span class="text-[18px] font-bold text-[#008000]"> {{ item.courseName }} </span>
                   </div>
                   <div
                     class="accordion-item-body space-y-4"
@@ -64,18 +64,18 @@
                     [attr.aria-labelledby]="'accordion-header-' + index"
                   >
                     <div>
-                        <span class="text-[18px] font-bold">Course ID: </span> 
-                        <span class="font-sans text-[20px]">{{item.id}}</span>
+                        <span class="text-[18px] font-bold text-[#008000]">Course ID: </span> 
+                        <span class="font-sans text-[#008000] text-[20px]">{{item.id}}</span>
                     </div>
 
                     <div>
-                        <span class="text-[18px] font-bold">Department: </span>
-                        <span class="font-sans text-[20px]">{{ item.departmentName }}</span>
+                        <span class="text-[18px] font-bold text-[#008000]">Department: </span>
+                        <span class="font-sans text-[#008000] text-[20px]">{{ item.departmentName }}</span>
                     </div>
 
                     <div>
-                        <span class="text-[18px] font-bold">Created At:</span>
-                        <span class="font-sans text-[20px]">{{item.created_at | date:'yyyy-dd-MM'}}</span>
+                        <span class="text-[18px] font-bold text-[#008000]">Created At:</span>
+                        <span class="font-sans text-[#008000] text-[20px]">{{item.created_at | date:'MM/dd/yyyy'}}</span>
                     </div>
             
                     <div class="w-full grid grid-cols-2 gap-4 items-center justify-center pt-4 ">
@@ -121,7 +121,7 @@
                             <div class="text-sm text-[#008000] font-sans">{{ item.departmentName }}</div>
                           </td>
                         <td class="w-auto py-4 whitespace-nowrap text-center ">
-                          <div class="text-[#008000]">{{ item.created_at | date:'yyyy-dd-MM' }}</div>
+                          <div class="text-[#008000]">{{ item.created_at | date:'MM/dd/yyyy' }}</div>
                         </td>
                         <td class="w-auto py-4 whitespace-nowrap text-center space-x-2">
                           <button (click)="openViewDialog(item)">

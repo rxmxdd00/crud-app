@@ -14,21 +14,21 @@
         </div>
    </div>
 
-   <section id="mobile-menu" class="absolute top-68 bg-black w-full  flex-col justify-content-center origin-top animate-open-menu hidden text-white">
+   <section id="mobile-menu" class="absolute top-68 bg-[#C1E1C1] w-full  flex-col justify-content-center origin-top animate-open-menu hidden text-white">
         <!-- <button class="text-8xl self-end px-6 ">
             &times;
         </button> -->
         <nav class="flex flex-col min-h-screen items-center py-8" aria-label="mobile">
-            <a [routerLink]="['/enrollment']" routerLinkActive="router-link-active"  class="w-full text-center py-6 hover:opacity-90 text-3xl">
+            <a [routerLink]="['/enrollment']" routerLinkActive="activebutton"  class="w-full text-center py-6 hover:opacity-90 text-3xl text-[#008000]">
                 Enrollment
             </a>
-            <a [routerLink]="['/student']" routerLinkActive="router-link-active"  class="w-full text-center py-6 hover:opacity-90 text-3xl">
+            <a [routerLink]="['/student']" routerLinkActive="activebutton"  class="w-full text-center py-6 hover:opacity-90 text-3xl text-[#008000]">
                 Student
             </a>
-            <a [routerLink]="['/course']" routerLinkActive="router-link-active"  class="w-full text-center py-6 hover:opacity-90 text-3xl">
+            <a [routerLink]="['/course']" routerLinkActive="activebutton"  class="w-full text-center py-6 hover:opacity-90 text-3xl text-[#008000]">
                 Course
             </a>
-            <a [routerLink]="['/department']" routerLinkActive="router-link-active"  class="w-full text-center py-6 hover:opacity-90 text-3xl">
+            <a [routerLink]="['/department']" routerLinkActive="activebutton"  class="w-full text-center py-6 hover:opacity-90 text-3xl text-[#008000]">
                 Department
             </a>
             
@@ -44,7 +44,7 @@
 
         <div class="flex flex-col items-end justify-center md:pr-4">
             <nav class="flex justify-end md:space-x-2 lg:space-x-6">
-                <a [routerLink]="['/enrollment']">
+                <a [routerLink]="['/enrollment']" routerLinkActive="activebutton">
                     <div class="flex flex-col justify-center h-full border-b-2 border-[#008000] hover:border-white ease-in-out duration-300">
                         <span class="text-white text-2xl">
                             Enrollment
@@ -52,7 +52,7 @@
                     </div>
                 </a>
     
-                <a [routerLink]="['/student']">
+                <a [routerLink]="['/student']" routerLinkActive="activebutton">
                     <div class="flex flex-col justify-center border-b-2 border-[#008000] hover:border-white">
                         <span class="text-white text-2xl">
                             Student
@@ -60,7 +60,7 @@
                     </div>
                 </a>
     
-                <a [routerLink]="['/course']">
+                <a [routerLink]="['/course']" routerLinkActive="activebutton">
                     <div class="flex flex-col justify-center border-b-2 border-[#008000] hover:border-white">
                         <span class="text-white text-2xl">
                             Course
@@ -68,7 +68,7 @@
                     </div>
                 </a>
     
-                <a [routerLink]="['/department']">
+                <a [routerLink]="['/department']" routerLinkActive="activebutton">
                     <div class="flex flex-col justify-center border-b-2 border-[#008000] hover:border-white">
                         <span class="text-white text-2xl">
                             Department

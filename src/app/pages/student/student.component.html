@@ -54,7 +54,7 @@
                   [attr.aria-expanded]="accordionItem.expanded"
                   [attr.aria-controls]="'accordion-body-' + index"
                 >
-                  <div class="accordion-item-header" (click)="accordionItem.toggle()">
+                  <div class="accordion-item-header text-[#008000]" (click)="accordionItem.toggle()">
                     {{ item.firstName +' '+ item.lastName }}
                   </div>
                   <div
@@ -65,37 +65,35 @@
                     [attr.aria-labelledby]="'accordion-header-' + index"
                   >
                     <div>
-                        <span class="text-[18px] font-bold">Student ID: </span> 
-                        <span class="font-sans text-[20px]">{{item.id}}</span>
+                        <span class="text-[18px] font-bold text-[#008000]">Student ID: </span> 
+                        <span class="font-sans text-[#008000] text-[20px]">{{item.id}}</span>
                     </div>
 
                     <div>
-                        <span class="text-[18px] font-bold">Address: </span> 
-                        <span class="font-sans text-[20px]">{{item.address}}</span>
+                        <span class="text-[18px] font-bold text-[#008000]">Address: </span> 
+                        <span class="font-sans text-[#008000] text-[20px]">{{item.address}}</span>
                     </div>
 
                     <div>
-                        <span class="text-[18px] font-bold">Birthdate: </span> 
-                        <span class="font-sans text-[20px]">{{item.DOB}}</span>
+                        <span class="text-[18px] font-bold text-[#008000]">Birthdate: </span> 
+                        <span class="font-sans text-[#008000] text-[20px]">{{item.DOB}}</span>
                     </div>
 
                     <div>
-                        <span class="text-[18px] font-bold">Created At: </span> 
-                        <span class="font-sans text-[20px]">{{item.created_at | date:'yyyy-dd-MM'}}</span>
+                        <span class="text-[18px] font-bold text-[#008000]">Created At: </span> 
+                        <span class="font-sans text-[#008000] text-[20px]">{{item.created_at | date:'MM/dd/yyyy'}}</span>
                     </div>
             
-                    <div class="w-full flex flex-col items-center justify-center pt-4 space-y-2">
-                        <div class="flex space-x-2">
-                          <div>
-                            <button class="w-[150px] h-[40px] bg-[#008000] rounded-lg text-white" (click)="openViewDialog(item)">View</button>
-                          </div>
-                          <div>
-                            <button class="w-[150px] h-[40px] bg-[#2C3138] rounded-lg text-white" (click)="openEditDialog(item)">Edit</button>
-                          </div>
-                        </div>
-                        <div>
-                          <button class="w-[300px] h-[40px] bg-[#850101] rounded-lg text-white" (click)="openDeleteDialog(item)">Delete</button>
-                        </div>
+                    <div class="w-full grid grid-cols-2 gap-4 items-center justify-center pt-4 ">
+                      <div class="w-auto">
+                        <button class="w-full h-[40px] bg-[#008000] rounded-lg text-white" (click)="openViewDialog(item)">View</button>
+                      </div>
+                      <div class="w-auto">
+                        <button class="w-full h-[40px] bg-[#2C3138] rounded-lg text-white" (click)="openEditDialog(item)">Edit</button>
+                      </div>
+                      <div class="col-span-2">
+                        <button class="w-full h-[40px] bg-[#850101] rounded-lg text-white" (click)="openDeleteDialog(item)">Delete</button>
+                      </div>
                     </div>
                    
                   </div>
@@ -131,10 +129,10 @@
                             <div class="text-sm text-[#008000] font-sans">{{ item.address }}</div>
                         </td>
                         <td class="w-auto py-4 whitespace-nowrap text-center ">
-                            <div class="text-[#008000]">{{ item.DOB | date:'yyyy-dd-MM' }}</div>
+                            <div class="text-[#008000]">{{ item.DOB | date:'MM/dd/yyyy' }}</div>
                         </td>
                         <td class="w-auto py-4 whitespace-nowrap text-center ">
-                          <div class="text-[#008000]">{{ item.created_at | date:'yyyy-dd-MM' }}</div>
+                          <div class="text-[#008000]">{{ item.created_at | date:'MM/dd/yyyy' }}</div>
                         </td>
                         <td class="w-auto py-4 whitespace-nowrap text-center space-x-2">
                           <button (click)="openViewDialog(item)">

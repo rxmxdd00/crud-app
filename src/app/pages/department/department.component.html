@@ -52,7 +52,7 @@
                   [attr.aria-expanded]="accordionItem.expanded"
                   [attr.aria-controls]="'accordion-body-' + index"
                 >
-                  <div class="accordion-item-header" (click)="accordionItem.toggle()">
+                  <div class="accordion-item-header  text-[#008000]" (click)="accordionItem.toggle()">
                     {{ item.departmentName }}
                   </div>
                   <div
@@ -64,13 +64,13 @@
                   >
                     <div>
                         <div>
-                            <span>ID: {{item.id}}</span>
+                            <span class="text-[#008000]">ID: {{item.id}}</span>
                         </div>
                     </div>
 
                     <div>
                         <div>
-                            <span>Created At: {{item.created_at | date:'yyyy-dd-MM'}}</span>
+                            <span class="text-[#008000]">Created At: {{item.created_at | date:'MM/dd/yyyy'}}</span>
                         </div>
                     </div>
             
@@ -113,7 +113,7 @@
                           <div class="text-sm text-[#008000] font-sans">{{ item.departmentName }}</div>
                         </td>
                         <td class="w-auto py-4 whitespace-nowrap text-center ">
-                          <div class="text-[#008000]">{{ item.created_at | date:'yyyy-dd-MM' }}</div>
+                          <div class="text-[#008000]">{{ item.created_at | date:'MM/dd/yyyy' }}</div>
                         </td>
                         <td class="w-auto py-4 whitespace-nowrap text-center space-x-2">
                           <button (click)="openViewDialog(item)">

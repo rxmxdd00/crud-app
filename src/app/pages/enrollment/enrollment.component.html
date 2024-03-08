@@ -57,7 +57,7 @@
                   </div> -->
 
                   <div class="accordion-item-header" (click)="accordionItem.toggle()">
-                    <span class="text-[18px] font-bold">{{ item.firstName +' '+ item.lastName }}</span>
+                    <span class="text-[18px] font-bold text-[#008000]">{{ item.firstName +' '+ item.lastName }}</span>
                   </div>
                   <div
                     class="accordion-item-body"
@@ -67,41 +67,40 @@
                     [attr.aria-labelledby]="'accordion-header-' + index"
                   >
                     <div>
-                        <span class="text-[18px] font-bold">Enrollment ID: </span> 
-                        <span class="font-sans text-[20px]">{{item.id}}</span>
+                        <span class="text-[18px] font-bold text-[#008000]">Enrollment ID: </span> 
+                        <span class="font-sans text-[#008000] text-[20px]">{{item.id}}</span>
                     </div>
 
                     <div>
-                        <span class="text-[18px] font-bold">Enrolled: </span> 
-                        <span class="font-sans text-[20px]">{{item.enrollment_date}}</span>
+                        <span class="text-[18px] font-bold text-[#008000]">Enrolled: </span> 
+                        <span class="font-sans text-[#008000] text-[20px]">{{item.enrollment_date}}</span>
                     </div>
 
                     <div>
-                        <span class="text-[18px] font-bold">Course: </span> 
-                        <span class="font-sans text-[20px]">{{item.courseName}}</span>
+                        <span class="text-[18px] font-bold text-[#008000]">Course: </span> 
+                        <span class="font-sans text-[#008000] text-[20px]">{{item.courseName}}</span>
                     </div>
 
                     <div>
-                        <span class="text-[18px] font-bold">Department: </span> 
-                        <span class="font-sans text-[20px]">{{ findDepartmentById(item.departmentId)?.departmentName}}</span>
+                        <span class="text-[18px] font-bold text-[#008000]">Department: </span> 
+                        <span class="font-sans text-[#008000] text-[20px]">{{ findDepartmentById(item.departmentId)?.departmentName}}</span>
                     </div>
 
                     <div>
-                        <span class="text-[18px] font-bold">Address: </span> 
-                        <span class="font-sans text-[20px]">{{item.address}}</span>
+                        <span class="text-[18px] font-bold text-[#008000]">Address: </span> 
+                        <span class="font-sans text-[#008000] text-[20px]">{{item.address}}</span>
                     </div>
 
                     <div>
-                        <div>
-                            <span>Created At: {{item.created_at | date:'yyyy-dd-MM'}}</span>
-                        </div>
+                        <span class="text-[18px] font-bold text-[#008000]">Birthdate : </span> 
+                        <span class="font-sans text-[#008000] text-[20px]">{{item.DOB | date : "MM/dd/yyyy"}}</span>
                     </div>
 
                     <div>
-                        <span class="text-[18px] font-bold">Birthdate : </span> 
-                        <span class="font-sans text-[20px]">{{item.DOB}}</span>
-                    </div>
-            
+                      <span class="text-[18px] font-bold text-[#008000]">Created At </span> 
+                      <span class="font-sans text-[#008000] text-[20px]">{{item.created_at | date: 'MM/dd/yyyy'}}</span>
+                  </div>
+
                     <div class="w-full grid grid-cols-2 gap-4 items-center justify-center pt-4 ">
                       <div class="w-auto">
                         <button class="w-full h-[40px] bg-[#008000] rounded-lg text-white" (click)="openViewDialog(item)">View</button>
@@ -158,7 +157,7 @@
                           <span class="font-sans text-sm text-[#008000]">{{ item.address }}</span>
                         </td>
                         <td class="lg:px-4 md:px-2 py-4 whitespace-nowrap ">
-                          <div class="text-[#008000]">{{ item.created_at | date:'yyyy-dd-MM' }}</div>
+                          <div class="text-[#008000]">{{ item.created_at | date:'MM/dd/yyyy' }}</div>
                         </td>
                         <td class="lg:px-4 md:px-2 py-4 whitespace-nowrap md:hidden lg:block">
                           <span class="font-sans text-sm text-[#008000]">{{ item.DOB }}</span>

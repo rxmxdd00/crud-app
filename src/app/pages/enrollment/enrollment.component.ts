@@ -43,7 +43,7 @@ export class EnrollmentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      this. getEnrollmentData () ;
+    this. getEnrollmentData () ;
       this.getDepartment() ;
   }
 
@@ -282,16 +282,35 @@ export class EnrollmentDialogComponent implements OnInit{
       return;
     }
 
-    const checkStudent = this.enrollments.find(en => en.studentId == this.enrollmentForm.value.student);
-    if (checkStudent) {
-      this.snackBar.open('There is a record already for this student', 'Close', {
-        duration: 3000, // Duration in milliseconds
-        verticalPosition: 'bottom', // You can also use 'bottom'
-        horizontalPosition: 'center', // You can also use 'start' | 'end' | 'left' | 'right'
-        panelClass: ['error-snackbar'], // Custom CSS class for styling
-      });
-      return;
+    const studentIdToCheck = this.enrollmentForm.value.student;
+    const courseIdToCheck = this.enrollmentForm.value.course;
+
+    const isStudentEnrolled = this.enrollments.some(en => en.studentId === studentIdToCheck);
+
+    if (isStudentEnrolled) {
+      const isCourseEnrolled = this.enrollments.some(en => en.studentId === studentIdToCheck && en.courseId === courseIdToCheck);
+
+      if (isCourseEnrolled) {
+        this.snackBar.open('This student is already enrolled in the selected course', 'Close', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+          horizontalPosition: 'center',
+          panelClass: ['error-snackbar'],
+        });
+        return;
+      }
     }
+
+    // const checkStudent = this.enrollments.find(en => en.studentId == this.enrollmentForm.value.student);
+    // if (checkStudent) {
+    //   this.snackBar.open('There is a record already for this student', 'Close', {
+    //     duration: 3000, // Duration in milliseconds
+    //     verticalPosition: 'bottom', // You can also use 'bottom'
+    //     horizontalPosition: 'center', // You can also use 'start' | 'end' | 'left' | 'right'
+    //     panelClass: ['error-snackbar'], // Custom CSS class for styling
+    //   });
+    //   return;
+    // }
 
     let formattedDate = moment(this.enrollmentForm.value.enrollment_date).format('YYYY/MM/DD');
     const data = {

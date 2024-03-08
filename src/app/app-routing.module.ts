@@ -7,7 +7,7 @@ import { NgModule } from '@angular/core';
 import { StudentComponent } from './pages/student/student.component';
 
 const routes: Routes = [
-  {path:'', redirectTo: '/student', pathMatch:'full'},
+  {path:'', redirectTo: '/enrollment', pathMatch:'full'},
   {path: 'student',  component : StudentComponent },
   {path: 'course',  component : CourseComponent },
   {path: 'department',  component : DepartmentComponent },
